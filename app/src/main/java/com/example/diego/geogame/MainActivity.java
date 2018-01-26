@@ -18,6 +18,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
@@ -123,5 +124,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         // Engadimos tesoro
         mMap.addMarker(new MarkerOptions().position(tesoro).title("Marca de Tesoro"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(tesoro));
+        //Añadimos estilo de mapa
+        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_road));
     }
 }
