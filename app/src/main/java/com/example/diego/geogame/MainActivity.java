@@ -16,6 +16,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
@@ -107,7 +108,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        //engadimos controls
+        //engadimos controles
         mMap.getUiSettings().setZoomControlsEnabled(true);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
@@ -121,10 +122,25 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         }
         mMap.setMyLocationEnabled(true);
 
-        // Engadimos tesoro
-        mMap.addMarker(new MarkerOptions().position(tesoro).title("Marca de Tesoro"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(tesoro));
+        // Engadimos tesoros
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(42.2365196, -8.712180900000021))//posicion del marcador
+                .title("Tesoro nº1")//nombre del marcador
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icomap)));//imagen del marcador
+
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(42.2362823, -8.712736800000016))
+                .title("Tesoro nº2")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icomap)));
+
+        mMap.addMarker(new MarkerOptions()
+                .position(new LatLng(42.2371893, -8.712416299999973))
+                .title("Tesoro nº3")
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.icomap)));
+
+
         //Añadimos estilo de mapa
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_road));
+
     }
 }
