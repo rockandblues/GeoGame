@@ -1,6 +1,7 @@
 package com.example.diego.geogame;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -10,6 +11,8 @@ import android.os.Looper;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -34,7 +37,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     // coordenadas del tesoro
     private LatLng tesoro;
     private Location tesoroLoc;
-    private double lat=42.263044, lng=-8.802236;
+    private double lat = 42.263044, lng = -8.802236;
 
     //Minimo tiempo para updates en Milisegundos
     private static final long MIN_CAMBIO_DISTANCIA_PARA_UPDATES = (long) 20; // 20 metro
@@ -54,6 +57,19 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
 
         mLocMgr = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        Button btnCam = (Button) findViewById(R.id.btn_qr);
+        btnCam.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent ScamQR = new Intent(getApplicationContext(), ScamQR.class);
+
+                startActivity(ScamQR);
+            }});
+
+
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             //Requiere permisos para Android 6.0
             Log.e(TAG, "No se tienen permisos necesarios!, se requieren.");
@@ -66,7 +82,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         }
         textViewGPS.setText("Lat " + " Long ");
         // creamos objetos para determinar el tesoro
-        tesoro = new LatLng(lat,lng);
+        tesoro = new LatLng(lat, lng);
         tesoroLoc = new Location(LocationManager.GPS_PROVIDER);
         tesoroLoc.setLatitude(lat);
         tesoroLoc.setLongitude(lng);
@@ -76,10 +92,10 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     public LocationListener locListener = new LocationListener() {
         public void onLocationChanged(Location location) {
             Log.i(TAG, "Lat " + location.getLatitude() + " Long " + location.getLongitude());
-            textViewGPS.setText("Lat " + (float)location.getLatitude() + " Long " + (float)location.getLongitude());
+            textViewGPS.setText("Lat " + (float) location.getLatitude() + " Long " + (float) location.getLongitude());
 
             // movemos la camara para la nueva posicion
-            LatLng nuevaPosicion = new LatLng(location.getLatitude(),location.getLongitude());
+            LatLng nuevaPosicion = new LatLng(location.getLatitude(), location.getLongitude());
             CameraPosition cameraPosition = CameraPosition.builder()
                     .target(nuevaPosicion)
                     .zoom(15)
@@ -143,4 +159,14 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_road));
 
     }
+
+    public void Cam() {
+
+
+
+    }
 }
+
+
+
+
